@@ -26,17 +26,17 @@ namespace Assignment4.APIHandlerManager
 
         public HospitalData GetHospitals()
         {
-            string NATIONAL_PARK_API_PATH = BASE_URL;
+            string api_path = BASE_URL;
             string json = "";
             string finalJson = "";
 
             HospitalData result = null;
 
-            httpClient.BaseAddress = new Uri(NATIONAL_PARK_API_PATH);
+            httpClient.BaseAddress = new Uri(api_path);
 
             try
             {
-                HttpResponseMessage response = httpClient.GetAsync(NATIONAL_PARK_API_PATH).GetAwaiter().GetResult();
+                HttpResponseMessage response = httpClient.GetAsync(api_path).GetAwaiter().GetResult();
                 if (response.IsSuccessStatusCode)
                 {
                     json = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();

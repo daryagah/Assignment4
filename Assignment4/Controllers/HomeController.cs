@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Assignment4.Models;
 using Assignment4.APIHandlerManager;
 using Assignment4.DataAccess;
+using Microsoft.EntityFrameworkCore;
 
 namespace Assignment4.Controllers
 {
@@ -36,10 +37,14 @@ namespace Assignment4.Controllers
             return View(result);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+        //public ActionResult Table()
+        //{
+        //    Hospital hosp = dbContext.Hospitals
+        //                             .Include(c => c.drg_definition)
+        //                             .First();
+
+        //    return View(hosp);
+        //}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

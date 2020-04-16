@@ -13,9 +13,8 @@ namespace Assignment4.Models
     public class Hospital
     {
         [Key]
-        public int id { get; set; }
-        public string drg_definition { get; set; }
         public string provider_id { get; set; }
+        public string drg_definition { get; set; }
         public string provider_name { get; set; }
         public string provider_street_address { get; set; }
         public string provider_city { get; set; }

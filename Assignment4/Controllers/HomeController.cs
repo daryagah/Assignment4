@@ -37,13 +37,16 @@ namespace Assignment4.Controllers
             return View(result);
         }
 
-        //public ActionResult Table()
+        public ActionResult Table()
+        {
+            var Hosp = from h in dbContext.Hospitals
+                           select h;
+            Hosp = Hosp.Where(h => h.provider_state == "FL");
+            return View(Hosp.ToList());
+        }
+        //public async Task<IActionResult> Table()
         //{
-        //    Hospital hosp = dbContext.Hospitals
-        //                             .Include(c => c.drg_definition)
-        //                             .First();
-
-        //    return View(hosp);
+        //    return View(await dbContext.Hospitals.ToListAsync());
         //}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

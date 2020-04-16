@@ -1,0 +1,25 @@
+﻿@model Assignment4.Models.HospitalData
+
+<h1>Data</h1>
+<hr />
+
+@foreach (var item in Model.data)
+{
+    <div>
+        <h3>
+            @Html.DisplayFor(modelItem => item.provider_name)
+        </h3>
+        <div>
+            @Html.DisplayFor(modelItem => item.drg_definition)
+        </div>
+        @Html.DisplayFor(modelItem => item.provider_state)
+        <div>
+            @Html.DisplayFor(modelItem => item.provider_city)
+        </div>
+    </div>
+    <br />
+}
+
+<script>
+    alertDbSave(@ViewBag.dbSuccessComp);
+</script>

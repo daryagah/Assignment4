@@ -39,10 +39,9 @@ namespace Assignment4.Controllers
 
         public ActionResult Table()
         {
-            var Hosp = from h in dbContext.Hospitals
-                           select h;
-            Hosp = Hosp.Where(h => h.provider_state == "FL");
-            return View(Hosp.ToList());
+            IQueryable<Hospital> Hosp = dbContext.Hospitals
+                                                 .Where(h => h.provider_state == "FL");
+            return View(Hosp);
         }
         //public async Task<IActionResult> Table()
         //{

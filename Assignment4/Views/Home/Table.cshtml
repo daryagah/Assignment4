@@ -12,90 +12,94 @@
     <title>Hospitals</title>
 </head>
 <body>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.provider_id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.drg_definition)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.provider_name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.provider_street_address)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.provider_city)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.provider_state)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.provider_zip_code)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.hospital_referral_region_description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.total_discharges)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.average_covered_charges)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.average_medicare_payments)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.average_medicare_payments_2)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.provider_id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.drg_definition)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.provider_name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.provider_street_address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.provider_city)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.provider_state)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.provider_zip_code)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.hospital_referral_region_description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.total_discharges)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.average_covered_charges)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.average_medicare_payments)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.average_medicare_payments_2)
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.provider_id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.drg_definition)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.provider_name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.provider_street_address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.provider_city)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.provider_state)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.provider_zip_code)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.hospital_referral_region_description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.total_discharges)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.average_covered_charges)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.average_medicare_payments)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.average_medicare_payments_2)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.provider_id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.drg_definition)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.provider_name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.provider_street_address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.provider_city)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.provider_state)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.provider_zip_code)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.hospital_referral_region_description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.total_discharges)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.average_covered_charges)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.average_medicare_payments)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.average_medicare_payments_2)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <script>
+    alertDbSave(@ViewBag.dbSuccessComp);
+    </script>
 </body>
 </html>

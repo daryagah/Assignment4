@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Assignment4.Models.Hospital>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Chart.js examples</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
+</head>
+<body>
+    <h1>Total Discharges by State</h1>
+
+    <div class="chart-container" style="position: center; height:40vh; width:80vw">
+        <canvas id="chart" width="400" height="200"></canvas>
+    </div>
+
+    <script>
+        new Chart(document.getElementById("chart"), {
+          type: 'bar',
+          data: {
+            labels: [@Html.Raw(@ViewBag.Labels)],
+            datasets: [
+              {
+                label: "Total Discharges by State",
+                //backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                    data: [@Html.Raw(@ViewBag.Data)]
+                  }
+            ]
+          },
+          options: {
+            legend: { display: false },
+            title: {
+              display: true,
+              },
+          }
+        });
+    </script>
+</body>
+</html>

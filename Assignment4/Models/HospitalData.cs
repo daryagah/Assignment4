@@ -19,11 +19,11 @@ namespace Assignment4.Models
         public string provider_street_address { get; set; }
         public string provider_city { get; set; }
         public string provider_state { get; set; }
-        public string provider_zip_code { get; set; }
+        public int provider_zip_code { get; set; }
         public string hospital_referral_region_description { get; set; }
-        public string total_discharges { get; set; }
-        public string average_covered_charges { get; set; }
-        public string average_medicare_payments { get; set; }
-        public string average_medicare_payments_2 { get; set; }
+        public int total_discharges { get; set; }
+        public float average_covered_charges { get; set; }
+        public float average_medicare_payments { get; set; }
+        public float average_medicare_payments_2 { get; set; }
     }
 }

@@ -58,7 +58,10 @@ namespace Assignment4.Controllers
                                                  .Select(cl => new Hospital
                                                  {
                                                      provider_state = cl.Key,
-                                                     total_discharges = cl.Sum(c => c.total_discharges)
+                                                     total_discharges = cl.Sum(c => c.total_discharges),
+                                                     average_medicare_payments = cl.Average(c => c.average_medicare_payments),
+                                                     average_medicare_payments_2 = cl.Average(c => c.average_medicare_payments_2),
+                                                     average_covered_charges = cl.Average(c => c.average_covered_charges)
                                                  })
                                                  .OrderBy(h => h.provider_state);
 
@@ -89,7 +92,10 @@ namespace Assignment4.Controllers
                                                  .Select(cl => new Hospital
                                                  {
                                                      provider_state = cl.Key,
-                                                     total_discharges = cl.Sum(c => c.total_discharges)
+                                                     total_discharges = cl.Sum(c => c.total_discharges),
+                                                     average_medicare_payments = cl.Average(c => c.average_medicare_payments),
+                                                     average_medicare_payments_2 = cl.Average(c => c.average_medicare_payments_2),
+                                                     average_covered_charges = cl.Average(c => c.average_covered_charges)
                                                  })
                                                  .OrderBy(h => h.provider_state);
 
@@ -119,7 +125,10 @@ namespace Assignment4.Controllers
                                                  .Select(cl => new Hospital
                                                  {
                                                      provider_state = cl.Key,
-                                                     average_medicare_payments = cl.Average(c => c.average_medicare_payments)
+                                                     total_discharges = cl.Sum(c => c.total_discharges),
+                                                     average_medicare_payments = cl.Average(c => c.average_medicare_payments),
+                                                     average_medicare_payments_2 = cl.Average(c => c.average_medicare_payments_2),
+                                                     average_covered_charges = cl.Average(c => c.average_covered_charges)
                                                  })
                                                  .OrderBy(h => h.provider_state);
 
@@ -150,7 +159,10 @@ namespace Assignment4.Controllers
                                                  .Select(cl => new Hospital
                                                  {
                                                      provider_state = cl.Key,
-                                                     average_medicare_payments = cl.Max(c => c.average_medicare_payments) - cl.Min(c => c.average_medicare_payments)
+                                                     total_discharges = cl.Sum(c => c.total_discharges),
+                                                     average_medicare_payments = cl.Max(c => c.average_medicare_payments) - cl.Min(c => c.average_medicare_payments),
+                                                     average_medicare_payments_2 = cl.Max(c => c.average_medicare_payments_2) - cl.Min(c => c.average_medicare_payments_2),
+                                                     average_covered_charges = cl.Max(c => c.average_covered_charges) - cl.Min(c => c.average_covered_charges)
                                                  })
                                                  .OrderBy(h => h.provider_state);
 

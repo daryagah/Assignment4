@@ -40,14 +40,57 @@
             </ul>
         </nav>
 
-        <div class="content" style="margin-top:10px">
-                <h2>@ViewBag.Title</h2>
-                <p>@ViewBag.Desc</p>
-                <div class="chart-container" style="position: center; height:40vh; width:80vw">
-                    <canvas id="chart" width="400" height="200"></canvas>
-                </div>
+        <div class="content" style="margin-top:10px; display:block;">
+            <h2>@ViewBag.Title</h2>
+            <p>@ViewBag.Desc</p>
+                <canvas id="chart"></canvas>
+            <br />
+            <div id="table" style="overflow-y:auto; height: 400px; margin-top:10px; display:block;">
+                <table id="table-only">
+                    <thead>
+                        <tr>
+                            <th>
+                                Provider State
+                            </th>
+                            <th>
+                                Total Discharges
+                            </th>
+                            <th>
+                                Average Covered Charges
+                            </th>
+                            <th>
+                                Average Total Payments
+                            </th>
+                            <th>
+                                Average Medicare Payments
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.provider_state)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.total_discharges)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.average_covered_charges)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.average_medicare_payments)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.average_medicare_payments_2)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <br />
     </div>
     <script>
         new Chart(document.getElementById("chart"), {

@@ -20,25 +20,28 @@ namespace Assignment4.Controllers
             dbContext = context;
         }
 
-        public ActionResult Index()
+        public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult DataLoad()
+        public async Task<ViewResult> DataLoad()
         {
             APIHandler webHandler = new APIHandler();
             HospitalData result = webHandler.GetHospitals();
-            
-            foreach(var item in result.data)
+
+            foreach (var item in result.data)
             {
-                dbContext.Hospitals.Add(item);
+                if (dbContext.Hospitals.Count() == 0)
+                {
+                    dbContext.Hospitals.Add(item);
+                }
             }
-            dbContext.SaveChanges();
-            return View(result);
+            await dbContext.SaveChangesAsync();
+            return View("Index", result);
         }
 
-        public ActionResult Table()
+        public IActionResult Table()
         {
             IQueryable<Hospital> Hosp = dbContext.Hospitals
                                                  .Where(h => h.provider_state == "FL");
@@ -46,12 +49,12 @@ namespace Assignment4.Controllers
             return View(Hosp);
         }
 
-        public ActionResult About()
+        public IActionResult About()
         {
             return View();
         }
 
-        public ActionResult Chart()
+        public IActionResult Chart()
         {
             IQueryable<Hospital> Hosp = dbContext.Hospitals
                                                  .GroupBy(h => h.provider_state)
@@ -85,7 +88,7 @@ namespace Assignment4.Controllers
         }
 
 
-        public ActionResult DischargesByState()
+        public IActionResult DischargesByState()
         {
             IQueryable<Hospital> Hosp = dbContext.Hospitals
                                                  .GroupBy(h => h.provider_state)
@@ -118,7 +121,7 @@ namespace Assignment4.Controllers
             return View("Chart", Hosp);
         }
 
-        public ActionResult AveragePaymentsByState()
+        public IActionResult AveragePaymentsByState()
         {
             IQueryable<Hospital> Hosp = dbContext.Hospitals
                                                  .GroupBy(h => h.provider_state)
@@ -152,7 +155,7 @@ namespace Assignment4.Controllers
             return View("Chart", Hosp);
         }
 
-        public ActionResult PaymentDifferenceByState()
+        public IActionResult PaymentDifferenceByState()
         {
             IQueryable<Hospital> Hosp = dbContext.Hospitals
                                                  .GroupBy(h => h.provider_state)

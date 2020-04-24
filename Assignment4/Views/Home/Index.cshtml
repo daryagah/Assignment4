@@ -35,9 +35,9 @@
         <h2>
             Inpatient Prospective Payment System (IPPS) Provider Summary for the Top 100 Diagnosis-Related Groups (DRG) - FY2011
         </h2>
-        <br />
-        <p><a href="https://data.cms.gov/Medicare-Inpatient/Inpatient-Prospective-Payment-System-IPPS-Provider/97k6-zzx3">Click here to view this dataset</a></p>
-        <br />
+        <a class="link" href="https://data.cms.gov/Medicare-Inpatient/Inpatient-Prospective-Payment-System-IPPS-Provider/97k6-zzx3">Click here to view this dataset</a>
+        <br/>
+        <a class="link" asp-controller="Home" asp-action="DataLoad">Click here to save data to a local database</a>
         <h3>
             Facts about this dataset
         </h3>
@@ -50,6 +50,8 @@
         </div>
     </div>
 
+    <script>
+    alertDbSave(@ViewBag.dbSuccessComp);
+    </script>
 </body>
-
 </html>

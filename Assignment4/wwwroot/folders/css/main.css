@@ -300,6 +300,19 @@ hr {
     margin: 3em;
 }
 
+.link {
+    display: inline-block;
+    margin: 10px;
+    background-color: #daeef7;
+    border-radius: 0.5em;
+    padding: 0.8em 2em;
+    text-align: center;
+}
+
+a:link {
+    color: #292929;
+}
+
 table {
     border-collapse: collapse;
     border-spacing: 0;

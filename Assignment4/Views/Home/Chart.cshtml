@@ -35,10 +35,8 @@
         <nav id="graph-nav">
             <ul>
                 <li><a asp-controller="Home" asp-action="DischargesByState">Total Discharges by State</a></li>
-                <li><a asp-controller="Home" asp-action="AveragePaymentsByDRGs">Average Total Payments by DRGs</a></li>
-                <li><a href="#average-by-state" class="scrolly">Average Total Payments by State</a></li>
-                <li><a href="#diff-by-location" class="scrolly">Difference in Average Total Payments by Region</a></li>
-                <li><a href="#diff-by-drg" class="scrolly">Difference in Average Total Payments by DRGs</a></li>
+                <li><a asp-controller="Home" asp-action="AveragePaymentsByState">Average Total Payments by State</a></li>
+                <li><a asp-controller="Home" asp-action="PaymentDifferenceByState">Difference in Average Total Payments by State</a></li>
             </ul>
         </nav>
 

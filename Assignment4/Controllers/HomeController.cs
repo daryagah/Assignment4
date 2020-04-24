@@ -60,7 +60,7 @@ namespace Assignment4.Controllers
                                                      provider_state = cl.Key,
                                                      total_discharges = cl.Sum(c => c.total_discharges)
                                                  })
-                                                 .OrderBy(h => h.total_discharges);
+                                                 .OrderBy(h => h.provider_state);
 
             List<string> State = new List<string>();
             foreach (var item in Hosp)
@@ -91,7 +91,7 @@ namespace Assignment4.Controllers
                                                      provider_state = cl.Key,
                                                      total_discharges = cl.Sum(c => c.total_discharges)
                                                  })
-                                                 .OrderBy(h => h.total_discharges);
+                                                 .OrderBy(h => h.provider_state);
 
             List<string> State = new List<string>();
             foreach (var item in Hosp)
@@ -107,26 +107,26 @@ namespace Assignment4.Controllers
             ViewBag.Desc = "DRGs are a classification system that groups similar clinical conditions (diagnoses) and the procedures furnished by the hospital during the stay. What are the most common DRGs according to this dataset?";
             ViewBag.Data = String.Join(",", TotalDischarges.Select(d => d));
             ViewBag.Labels = String.Join(",", State.Select(d => "\"" + d + "\""));
-            ViewBag.Label = "Total Discharges by State";
+            ViewBag.Label = "Total Discharges";
 
             return View("Chart", Hosp);
         }
 
-        public ActionResult AveragePaymentsByDRGs()
+        public ActionResult AveragePaymentsByState()
         {
             IQueryable<Hospital> Hosp = dbContext.Hospitals
-                                                 .GroupBy(h => h.drg_definition)
+                                                 .GroupBy(h => h.provider_state)
                                                  .Select(cl => new Hospital
                                                  {
-                                                     drg_definition = cl.Key,
-                                                     average_medicare_payments = cl.Sum(c => c.average_medicare_payments)
+                                                     provider_state = cl.Key,
+                                                     average_medicare_payments = cl.Average(c => c.average_medicare_payments)
                                                  })
-                                                 .OrderBy(h => h.average_medicare_payments);
+                                                 .OrderBy(h => h.provider_state);
 
-            List<string> DRG = new List<string>();
+            List<string> State = new List<string>();
             foreach (var item in Hosp)
             {
-                DRG.Add(item.drg_definition);
+                State.Add(item.provider_state);
             }
             List<float> TotalPayments = new List<float>();
             foreach (var item in Hosp)
@@ -134,11 +134,42 @@ namespace Assignment4.Controllers
                 TotalPayments.Add(item.average_medicare_payments);
             }
 
-            ViewBag.Title = "Average Total Payments";
-            ViewBag.Desc = "DRGs are a classification system that groups similar clinical conditions (diagnoses) and the procedures furnished by the hospital during the stay. What are the most common DRGs according to this dataset?";
+            ViewBag.Title = "Average Total Payments by State";
+            ViewBag.Desc = "How do states differ in their average charges for a DRG? Here is the information with the most expensive states coming first:";
             ViewBag.Data = String.Join(",", TotalPayments.Select(d => d));
-            ViewBag.Labels = String.Join(",", DRG.Select(d => "\"" + d + "\""));
-            ViewBag.Label = "Average Payments by DRGs";
+            ViewBag.Labels = String.Join(",", State.Select(d => "\"" + d + "\""));
+            ViewBag.Label = "Average Payments";
+
+            return View("Chart", Hosp);
+        }
+
+        public ActionResult PaymentDifferenceByState()
+        {
+            IQueryable<Hospital> Hosp = dbContext.Hospitals
+                                                 .GroupBy(h => h.provider_state)
+                                                 .Select(cl => new Hospital
+                                                 {
+                                                     provider_state = cl.Key,
+                                                     average_medicare_payments = cl.Max(c => c.average_medicare_payments) - cl.Min(c => c.average_medicare_payments)
+                                                 })
+                                                 .OrderBy(h => h.provider_state);
+
+            List<string> State = new List<string>();
+            foreach (var item in Hosp)
+            {
+                State.Add(item.provider_state);
+            }
+            List<float> PaymentDifference = new List<float>();
+            foreach (var item in Hosp)
+            {
+                PaymentDifference.Add(item.average_medicare_payments);
+            }
+
+            ViewBag.Title = "Difference in Average Total Payments by State";
+            ViewBag.Desc = "How do states differ in their average charges for a DRG? Here is the information with the most expensive states coming first:";
+            ViewBag.Data = String.Join(",", PaymentDifference.Select(d => d));
+            ViewBag.Labels = String.Join(",", State.Select(d => "\"" + d + "\""));
+            ViewBag.Label = "Average Payments";
 
             return View("Chart", Hosp);
         }

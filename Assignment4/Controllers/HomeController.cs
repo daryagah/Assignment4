@@ -178,7 +178,7 @@ namespace Assignment4.Controllers
             }
 
             ViewBag.Title = "Difference in Average Total Payments by State";
-            ViewBag.Desc = "How do states differ in their average charges for a DRG? Here is the information with the most expensive states coming first:";
+            ViewBag.Desc = "How about the difference between the highest and the lowest charges in the same state? Here is the breakdown of locations with the largest difference, which can help find more affordable options in a region.";
             ViewBag.Data = String.Join(",", PaymentDifference.Select(d => d));
             ViewBag.Labels = String.Join(",", State.Select(d => "\"" + d + "\""));
             ViewBag.Label = "Average Payments";

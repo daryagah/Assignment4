@@ -34,8 +34,8 @@
 
         <nav id="graph-nav">
             <ul>
-                <li><a href="#discharge-state" class="scrolly">Total Discharges by State</a></li>
-                <li><a href="#average-by-drg" class="scrolly">Average Total Payments by DRGs</a></li>
+                <li><a asp-controller="Home" asp-action="DischargesByState">Total Discharges by State</a></li>
+                <li><a asp-controller="Home" asp-action="AveragePaymentsByDRGs">Average Total Payments by DRGs</a></li>
                 <li><a href="#average-by-state" class="scrolly">Average Total Payments by State</a></li>
                 <li><a href="#diff-by-location" class="scrolly">Difference in Average Total Payments by Region</a></li>
                 <li><a href="#diff-by-drg" class="scrolly">Difference in Average Total Payments by DRGs</a></li>
@@ -44,13 +44,14 @@
 
         <div class="content">
             <div id="discharge-state">
-                <h2>Total Discharges by State</h2>
-                <p>DRGs are a classification system that groups similar clinical conditions (diagnoses) and the procedures furnished by the hospital during the stay. What are the most common DRGs according to this dataset?</p>
+                <h2>@ViewBag.Title</h2>
+                <p>@ViewBag.Desc</p>
                 <div class="chart-container" style="position: center; height:40vh; width:80vw">
                     <canvas id="chart" width="400" height="200"></canvas>
                 </div>
             </div>
         </div>
+        <br />
     </div>
     <script>
         new Chart(document.getElementById("chart"), {
@@ -59,8 +60,8 @@
             labels: [@Html.Raw(@ViewBag.Labels)],
             datasets: [
               {
-                label: @Html.Raw(@ViewBag.Label),
-                //backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                label: '@ViewBag.Label',
+                backgroundColor: "#FFA07A",
                     data: [@Html.Raw(@ViewBag.Data)]
                   }
             ]

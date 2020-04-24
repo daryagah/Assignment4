@@ -51,7 +51,6 @@ namespace Assignment4.Controllers
             return View();
         }
 
-
         public ActionResult Chart()
         {
             IQueryable<Hospital> Hosp = dbContext.Hospitals
@@ -73,6 +72,39 @@ namespace Assignment4.Controllers
             {
                 TotalDischarges.Add(item.total_discharges);
             }
+            ViewBag.Title = "Total Discharges by State";
+            ViewBag.Desc = "DRGs are a classification system that groups similar clinical conditions (diagnoses) and the procedures furnished by the hospital during the stay. What are the most common DRGs according to this dataset?";
+            ViewBag.Data = String.Join(",", TotalDischarges.Select(d => d));
+            ViewBag.Labels = String.Join(",", State.Select(d => "\"" + d + "\""));
+            ViewBag.Label = "Total Discharges by State";
+
+            return View(Hosp);
+        }
+
+
+        public ActionResult DischargesByState()
+        {
+            IQueryable<Hospital> Hosp = dbContext.Hospitals
+                                                 .GroupBy(h => h.provider_state)
+                                                 .Select(cl => new Hospital
+                                                 {
+                                                     provider_state = cl.Key,
+                                                     total_discharges = cl.Sum(c => c.total_discharges)
+                                                 })
+                                                 .OrderBy(h => h.total_discharges);
+
+            List<string> State = new List<string>();
+            foreach (var item in Hosp)
+            {
+                State.Add(item.provider_state);
+            }
+            List<int> TotalDischarges = new List<int>();
+            foreach (var item in Hosp)
+            {
+                TotalDischarges.Add(item.total_discharges);
+            }
+            ViewBag.Title = "Total Discharges by State";
+            ViewBag.Desc = "DRGs are a classification system that groups similar clinical conditions (diagnoses) and the procedures furnished by the hospital during the stay. What are the most common DRGs according to this dataset?";
             ViewBag.Data = String.Join(",", TotalDischarges.Select(d => d));
             ViewBag.Labels = String.Join(",", State.Select(d => "\"" + d + "\""));
             ViewBag.Label = "Total Discharges by State";
@@ -101,8 +133,12 @@ namespace Assignment4.Controllers
             {
                 TotalPayments.Add(item.average_medicare_payments);
             }
+
+            ViewBag.Title = "Average Total Payments";
+            ViewBag.Desc = "DRGs are a classification system that groups similar clinical conditions (diagnoses) and the procedures furnished by the hospital during the stay. What are the most common DRGs according to this dataset?";
             ViewBag.Data = String.Join(",", TotalPayments.Select(d => d));
             ViewBag.Labels = String.Join(",", DRG.Select(d => "\"" + d + "\""));
+            ViewBag.Label = "Average Payments by DRGs";
 
             return View("Chart", Hosp);
         }

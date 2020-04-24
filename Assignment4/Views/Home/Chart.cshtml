@@ -5,21 +5,53 @@
 }
 
 <!DOCTYPE html>
-
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-
+<html id="graphs">
 <head>
-    <meta charset="utf-8" />
-    <title>Chart.js examples</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="@Url.Content("~/css/main.css")" rel="stylesheet" type="text/css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap" rel="stylesheet">
+    <title>Visualizing Insights</title>
 </head>
 <body>
-    <h1>Total Discharges by State</h1>
 
-    <div class="chart-container" style="position: center; height:40vh; width:80vw">
-        <canvas id="chart" width="400" height="200"></canvas>
+    <div class="main">
+        <div id="header-wrapper">
+            <nav class="mainnav">
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="about-us.html">About Us</a></li>
+                    <li><a href="statistics.html">Hospital Charge Dataset</a></li>
+                    <li><a href="graphs.html">Visualizing Insights</a></li>
+                </ul>
+                <hr />
+            </nav>
+
+            <h1>Visualizing Insights</h1>
+        </div>
+
+        <nav id="graph-nav">
+            <ul>
+                <li><a href="#average-ct" class="scrolly">Total Discharges by DRGs</a></li>
+                <li><a href="#average-by-drg" class="scrolly">Average Total Payments by DRGs</a></li>
+                <li><a href="#average-by-state" class="scrolly">Average Total Payments by State</a></li>
+                <li><a href="#diff-by-location" class="scrolly">Difference in Average Total Payments by Region</a></li>
+                <li><a href="#diff-by-drg" class="scrolly">Difference in Average Total Payments by DRGs</a></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <div id="discharge-state">
+                <h2>Total Discharges by State</h2>
+                <p>DRGs are a classification system that groups similar clinical conditions (diagnoses) and the procedures furnished by the hospital during the stay. What are the most common DRGs according to this dataset?</p>
+                <div class="chart-container" style="position: center; height:40vh; width:80vw">
+                    <canvas id="chart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
     </div>
-
     <script>
         new Chart(document.getElementById("chart"), {
           type: 'bar',
@@ -41,5 +73,9 @@
           }
         });
     </script>
+    <script src="@Url.Content("/js/jquery.min.js")"></script>
+    <script src="@Url.Content("/js/jquery.scrolly.min.js")"></script>
+    <script src="@Url.Content("/js/main.js")"></script>
 </body>
 </html>
+

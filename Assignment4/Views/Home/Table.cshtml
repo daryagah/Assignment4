@@ -16,40 +16,37 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.provider_id)
+                    DRG Definition
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.drg_definition)
+                    Provider Name
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.provider_name)
+                    Provider Street Address
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.provider_street_address)
+                    Provider City
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.provider_city)
+                    Provider State
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.provider_state)
+                    Provider ZipCode
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.provider_zip_code)
+                    Hospital Referral Region Description
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.hospital_referral_region_description)
+                    Total Discharges
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.total_discharges)
+                    Average Covered Charges
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.average_covered_charges)
+                    Average Total Payments
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.average_medicare_payments)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.average_medicare_payments_2)
+                    Average Medicare Payments
                 </th>
                 <th></th>
             </tr>
@@ -58,9 +55,6 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.provider_id)
-                    </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.drg_definition)
                     </td>
@@ -98,8 +92,5 @@
             }
         </tbody>
     </table>
-    <script>
-    alertDbSave(@ViewBag.dbSuccessComp);
-    </script>
 </body>
 </html>

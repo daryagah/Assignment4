@@ -19,12 +19,13 @@ namespace Assignment4.Controllers
         {
             dbContext = context;
         }
-        public IActionResult Index()
+
+        public ActionResult Index()
         {
             return View();
         }
 
-        public IActionResult DataView()
+        public IActionResult DataLoad()
         {
             APIHandler webHandler = new APIHandler();
             HospitalData result = webHandler.GetHospitals();
@@ -44,6 +45,12 @@ namespace Assignment4.Controllers
 
             return View(Hosp);
         }
+
+        public ActionResult About()
+        {
+            return View();
+        }
+
 
         public ActionResult Chart()
         {

@@ -75,8 +75,9 @@ namespace Assignment4.Controllers
             }
             ViewBag.Data = String.Join(",", TotalDischarges.Select(d => d));
             ViewBag.Labels = String.Join(",", State.Select(d => "\"" + d + "\""));
+            ViewBag.Label = "Total Discharges by State";
 
-            return View(Hosp);
+            return View("Chart", Hosp);
         }
 
         public ActionResult AveragePaymentsByDRGs()

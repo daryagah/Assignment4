@@ -27,7 +27,7 @@ footer, header, hgroup, menu, nav, section {
 }
 
 h1 {
-    padding: 0.5em;
+    padding: 0em;
     color: white;
     font-size: 40pt;
     line-height: 1.5em;
@@ -231,11 +231,11 @@ hr {
 
     #graph-nav ul {
         display: block;
-        padding: 1em;
+        padding: 0em 1em 1em 1em;
     }
 
         #graph-nav ul li {
-            padding: 1em 1.2em 1em 1.2em;
+            padding: 0em 1.2em 1em 1.2em;
             display: inline;
         }
 
@@ -261,7 +261,7 @@ hr {
 }
 
 #about-us h1 {
-    margin-bottom: 0.1em;
+    margin-bottom: 1em;
 }
 
 .avatar img {

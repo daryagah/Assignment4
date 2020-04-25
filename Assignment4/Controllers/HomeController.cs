@@ -41,12 +41,74 @@ namespace Assignment4.Controllers
             return View("Index", result);
         }
 
-        public IActionResult Table()
+        public IActionResult Table(string searchProvState, string searchProvCity, string sortOrder)
         {
-            IQueryable<Hospital> Hosp = dbContext.Hospitals
-                                                 .Where(h => h.provider_state == "FL");
-
-            return View(Hosp);
+            IQueryable<Hospital> Hosp = dbContext.Hospitals;
+            var HospsProvNames = Hosp;
+            var HospsProvCities = Hosp;
+            ViewBag.NameSortParam = String.IsNullOrEmpty(sortOrder) ? "namesDesc" : "namesAsc";
+            ViewBag.CitySortParam = String.IsNullOrEmpty(sortOrder) ? "cityDesc" : "cityAsc";
+            ViewBag.StateSortParam = String.IsNullOrEmpty(sortOrder) ? "states" : "";
+            ViewBag.DischargesSortParam = sortOrder == "MinDis" ? "discharges" : "MinDis";
+            ViewBag.CovChargesSortParam = sortOrder == "MinCovCharge" ? "covCharges" : "MinCovCharge";
+            ViewBag.TotalPmtsSortParam = sortOrder == "MinTotalPmts" ? "totalPmts" : "MinTotalPmts";
+            ViewBag.MedicSortParam = sortOrder == "MinMedic" ? "medicare" : "MinMedic";
+            switch(sortOrder)
+            {
+                case "namesDesc":
+                    Hosp = Hosp.OrderByDescending(h => h.provider_name);
+                    break;
+                case "namesAsc":
+                    Hosp = Hosp.OrderBy(h => h.provider_name);
+                    break;
+                case "cityDesc":
+                    Hosp = Hosp.OrderByDescending(h => h.provider_city);
+                    break;
+                case "cityAsc":
+                    Hosp = Hosp.OrderBy(h => h.provider_city);
+                    break;
+                case "states":
+                    Hosp = Hosp.OrderByDescending(h => h.provider_state);
+                    break;
+                case "MinDis":
+                    Hosp = Hosp.OrderBy(h => h.total_discharges);
+                    break;
+                case "discharges":
+                    Hosp = Hosp.OrderByDescending(h => h.total_discharges);
+                    break;
+                case "MinCovCharge":
+                    Hosp = Hosp.OrderBy(h => h.average_covered_charges);
+                    break;
+                case "covCharges":
+                    Hosp = Hosp.OrderByDescending(h => h.average_covered_charges);
+                    break;
+                case "MinTotalPmts":
+                    Hosp = Hosp.OrderBy(h => h.average_medicare_payments);
+                    break;
+                case "totalPmts":
+                    Hosp = Hosp.OrderByDescending(h => h.average_medicare_payments);
+                    break;
+                case "MinMedic":
+                    Hosp = Hosp.OrderBy(h => h.average_medicare_payments_2);
+                    break;
+                case "medic":
+                    Hosp = Hosp.OrderByDescending(h => h.average_medicare_payments_2);
+                    break;
+                default:
+                    Hosp = Hosp.OrderBy(h => h.provider_state);
+                    break;
+            }
+            if(!String.IsNullOrEmpty(searchProvState))
+            {
+                HospsProvNames = HospsProvNames.Where(Hosp => Hosp.provider_state.Contains(searchProvState));
+                return View(HospsProvNames.ToList());
+            }
+            if(!String.IsNullOrEmpty(searchProvCity))
+            {
+                HospsProvCities = HospsProvCities.Where(Hosp => Hosp.provider_city.Contains(searchProvCity));
+                return View(HospsProvCities.ToList());
+            }
+            return View(Hosp.ToList());
         }
 
         public IActionResult About()

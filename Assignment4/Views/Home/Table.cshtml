@@ -42,6 +42,15 @@
             </li>
         </ul>
         <h2>Analysis of Integer Variables</h2>
+        @using (Html.BeginForm())
+        {
+            <p>
+                Search by Provider State: @Html.TextBox("searchProvState")
+                <input type="submit" value="Search" />
+                Search by Provider City: @Html.TextBox("searchProvCity")
+                <input type="submit" value="Search" />
+            </p>
+        }
         <div id="table" style="overflow-y:auto; height: 800px;">
             <table id="table-only">
                 <thead>
@@ -50,16 +59,16 @@
                             DRG Definition
                         </th>
                         <th>
-                            Provider Name
+                            @Html.ActionLink("Provider Name", "Table", new { sortOrder = ViewBag.NameSortParam })
                         </th>
                         <th>
                             Provider Street Address
                         </th>
                         <th>
-                            Provider City
+                            @Html.ActionLink("Provider City", "Table", new { sortOrder = ViewBag.CitySortParam })
                         </th>
                         <th>
-                            Provider State
+                            @Html.ActionLink("Provider State", "Table", new {sortOrder = ViewBag.StateSortParam})
                         </th>
                         <th>
                             Provider ZipCode
@@ -68,16 +77,16 @@
                             Hospital Referral Region Description
                         </th>
                         <th>
-                            Total Discharges
+                            @Html.ActionLink("Total Discharges", "Table", new {sortOrder = ViewBag.DischargesSortParam})
                         </th>
                         <th>
-                            Average Covered Charges
+                            @Html.ActionLink("Average Covered Charges", "Table", new { sortOrder = ViewBag.CovChargesSortParam })
                         </th>
                         <th>
-                            Average Total Payments
+                            @Html.ActionLink("Average Total Payments", "Table", new { sortOrder = ViewBag.TotalPmtsSortParam })
                         </th>
                         <th>
-                            Average Medicare Payments
+                            @Html.ActionLink("Average Medicare Payments", "Table", new { sortOrder = ViewBag.MedicSortParam })
                         </th>
                     </tr>
                 </thead>

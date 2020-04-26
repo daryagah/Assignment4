@@ -12,5 +12,7 @@ namespace Assignment4.DataAccess
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         public DbSet<Hospital> Hospitals { get; set; }
+        public DbSet<Provider> Providers { get; set; }
+        public DbSet<Location> Locations { get; set; }
     }
 }

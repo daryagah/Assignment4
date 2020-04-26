@@ -9,6 +9,7 @@ using Assignment4.Models;
 using Assignment4.APIHandlerManager;
 using Assignment4.DataAccess;
 using Microsoft.EntityFrameworkCore;
+using static Assignment4.Models.LocationProvider;
 
 namespace Assignment4.Controllers
 {
@@ -116,19 +117,34 @@ namespace Assignment4.Controllers
             return View();
         }
 
+        List<Provider> providers = new List<Provider>();
+        List<Location> locations = new List<Location>();
+
         public IActionResult Chart()
         {
+            //IQueryable<LocationProvider> Hosp = locations
+            //                         .GroupBy(h => h.provider_state)
+            //                         .Select(cl => new Location
+            //                         {
+            //                             provider_state = cl.Key,
+            //                             total_discharges = cl.Sum(c => c.total_discharges),
+            //                             average_medicare_payments = cl.Average(c => c.average_medicare_payments),
+            //                             average_medicare_payments_2 = cl.Average(c => c.average_medicare_payments_2),
+            //                             average_covered_charges = cl.Average(c => c.average_covered_charges)
+            //                         })
+            //                         .OrderBy(h => h.provider_state);
+
             IQueryable<Hospital> Hosp = dbContext.Hospitals
-                                                 .GroupBy(h => h.provider_state)
-                                                 .Select(cl => new Hospital
-                                                 {
-                                                     provider_state = cl.Key,
-                                                     total_discharges = cl.Sum(c => c.total_discharges),
-                                                     average_medicare_payments = cl.Average(c => c.average_medicare_payments),
-                                                     average_medicare_payments_2 = cl.Average(c => c.average_medicare_payments_2),
-                                                     average_covered_charges = cl.Average(c => c.average_covered_charges)
-                                                 })
-                                                 .OrderBy(h => h.provider_state);
+                                     .GroupBy(h => h.provider_state)
+                                     .Select(cl => new Hospital
+                                     {
+                                         provider_state = cl.Key,
+                                         total_discharges = cl.Sum(c => c.total_discharges),
+                                         average_medicare_payments = cl.Average(c => c.average_medicare_payments),
+                                         average_medicare_payments_2 = cl.Average(c => c.average_medicare_payments_2),
+                                         average_covered_charges = cl.Average(c => c.average_covered_charges)
+                                     })
+                                     .OrderBy(h => h.provider_state);
 
             List<string> State = new List<string>();
             foreach (var item in Hosp)
@@ -144,9 +160,9 @@ namespace Assignment4.Controllers
             ViewBag.Desc = "DRGs are a classification system that groups similar clinical conditions (diagnoses) and the procedures furnished by the hospital during the stay. What are the most common DRGs according to this dataset?";
             ViewBag.Data = String.Join(",", TotalDischarges.Select(d => d));
             ViewBag.Labels = String.Join(",", State.Select(d => "\"" + d + "\""));
-            ViewBag.Label = "Total Discharges by State";
+            ViewBag.Label = "Total Discharges";
 
-            return View(Hosp);
+            return View("Chart", Hosp);
         }
 
 

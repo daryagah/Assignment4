@@ -139,20 +139,15 @@ namespace Assignment4.Controllers
         List<Provider> providers = new List<Provider>();
         List<Location> locations = new List<Location>();
 
+        public IActionResult Test()
+        {
+            IQueryable<Provider> Prov = dbContext.Providers
+                                        .Include(p => p.Location)
+                                        .Where(p => p.Location.provider_state == "FL");
+            return View(Prov.ToList());
+        }
         public IActionResult Chart()
         {
-            //IQueryable<LocationProvider> Hosp = locations
-            //                         .GroupBy(h => h.provider_state)
-            //                         .Select(cl => new Location
-            //                         {
-            //                             provider_state = cl.Key,
-            //                             total_discharges = cl.Sum(c => c.total_discharges),
-            //                             average_medicare_payments = cl.Average(c => c.average_medicare_payments),
-            //                             average_medicare_payments_2 = cl.Average(c => c.average_medicare_payments_2),
-            //                             average_covered_charges = cl.Average(c => c.average_covered_charges)
-            //                         })
-            //                         .OrderBy(h => h.provider_state);
-
             IQueryable<Hospital> Hosp = dbContext.Hospitals
                                      .GroupBy(h => h.provider_state)
                                      .Select(cl => new Hospital

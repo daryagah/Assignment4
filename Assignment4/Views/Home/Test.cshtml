@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Assignment4.Models.Provider>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en" id="sub">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="@Url.Content("~/content/css/main.css")" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap" rel="stylesheet">
+    <title>Hospital Charge Dataset</title>
+
+</head>
+<body>
+
+    <div id="header-wrapper">
+        <nav class="mainnav">
+            <ul>
+                <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                <li><a asp-controller="Home" asp-action="About">About Us</a></li>
+                <li><a asp-controller="Home" asp-action="Table">Hospital Charge Dataset</a></li>
+                <li><a asp-controller="Home" asp-action="Chart">Visualizing Insights</a></li>
+            </ul>
+            <hr />
+        </nav>
+
+        <h1>Descriptive Statistics about Data Set</h1>
+    </div>
+
+    <div class="content">
+        <ul>
+            <li>
+                Variables in the dataset are: drg definition, provider id, provider name,  provider street address, provider city, provider state, provider zip code, hospital referral region description, total discharges, averaged covered charges, average total payments, average medicare payments.
+            </li>
+            <li>
+                Integer values are: Total Discharges, Averaged Covered Charges, Average Total Payments and Average Medicare Payments
+            </li>
+        </ul>
+        <h2>Analysis of Integer Variables</h2>
+    </div>
+
+    <div id="table" style="overflow-y:auto; height: 800px;">
+        <table id="table-only">
+            <thead>
+                <tr>
+                    <th>
+                        DRG Definition
+                    </th>
+                    <th>
+                        Provider Street Address
+                    </th>
+                    <th>
+                        Provider City
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.drg_definition)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.provider_street_address)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Location.provider_city)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

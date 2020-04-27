@@ -21,6 +21,10 @@ section, summary, time, mark, audio, video {
     background-attachment: fixed;
 }
 
+p {
+    text-align: left;
+}
+
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
     display: block;
@@ -107,6 +111,10 @@ li {
     margin: 30px 10%;
     color: #292929;
 }
+
+    .content li {
+        text-align: left;
+    }
 
     .content a {
         font-weight: 600;

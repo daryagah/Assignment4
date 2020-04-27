@@ -10,7 +10,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="@Url.Content("~/content/css/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/styles/css/main.css")" rel="stylesheet" type="text/css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap" rel="stylesheet">
     <title>Visualizing Insights</title>
@@ -42,8 +42,13 @@
 
         <div class="content" style="margin-top:10px; display:block;">
             <h2>@ViewBag.Title</h2>
-            <p>@ViewBag.Desc</p>
-                <canvas id="chart"></canvas>
+            <ul>
+                @foreach (string li in ViewBag.Desc)
+                {
+                    <li>@li</li>
+                }
+            </ul>
+            <canvas id="chart"></canvas>
             <br />
             <div id="chart-table">
                 <table id="table-only">
@@ -113,9 +118,9 @@
           }
         });
     </script>
-    <script src="@Url.Content("/content/js/jquery.min.js")"></script>
-    <script src="@Url.Content("/content/js/jquery.scrolly.min.js")"></script>
-    <script src="@Url.Content("/content/js/main.js")"></script>
+    <script src="@Url.Content("/styles/js/jquery.min.js")"></script>
+    <script src="@Url.Content("/styles/js/jquery.scrolly.min.js")"></script>
+    <script src="@Url.Content("/styles/js/main.js")"></script>
 </body>
 </html>
 

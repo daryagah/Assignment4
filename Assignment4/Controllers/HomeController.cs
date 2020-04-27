@@ -37,7 +37,7 @@ namespace Assignment4.Controllers
                     dbContext.Hospitals.Add(item);
                 }
             }
-            foreach(var item in dbContext.Hospitals)
+            foreach (var item in dbContext.Hospitals)
             {
                 Provider provider = new Provider();
                 Location location = new Location();
@@ -63,8 +63,17 @@ namespace Assignment4.Controllers
 
         public IActionResult Table(string searchProvState, string searchProvCity, string sortOrder)
         {
-            IQueryable<Hospital> Hosp = dbContext.Hospitals;
-            var HospsProvNames = Hosp;
+            IQueryable<Provider> Hosp = dbContext.Providers.Include(p => p.Location);
+            if (!String.IsNullOrEmpty(searchProvState))
+            {
+                Hosp = Hosp.Where(p => p.Location.provider_state.Contains(searchProvState));
+            }
+            if (!String.IsNullOrEmpty(searchProvCity))
+            {
+                Hosp = Hosp.Where(p => p.Location.provider_city.Contains(searchProvCity));
+            }
+
+                var HospsProvNames = Hosp;
             var HospsProvCities = Hosp;
             ViewBag.NameSortParam = String.IsNullOrEmpty(sortOrder) ? "namesDesc" : "namesAsc";
             ViewBag.CitySortParam = String.IsNullOrEmpty(sortOrder) ? "cityDesc" : "cityAsc";
@@ -73,7 +82,7 @@ namespace Assignment4.Controllers
             ViewBag.CovChargesSortParam = sortOrder == "MinCovCharge" ? "covCharges" : "MinCovCharge";
             ViewBag.TotalPmtsSortParam = sortOrder == "MinTotalPmts" ? "totalPmts" : "MinTotalPmts";
             ViewBag.MedicSortParam = sortOrder == "MinMedic" ? "medicare" : "MinMedic";
-            switch(sortOrder)
+            switch (sortOrder)
             {
                 case "namesDesc":
                     Hosp = Hosp.OrderByDescending(h => h.provider_name);
@@ -82,13 +91,13 @@ namespace Assignment4.Controllers
                     Hosp = Hosp.OrderBy(h => h.provider_name);
                     break;
                 case "cityDesc":
-                    Hosp = Hosp.OrderByDescending(h => h.provider_city);
+                    Hosp = Hosp.OrderByDescending(h => h.Location.provider_city);
                     break;
                 case "cityAsc":
-                    Hosp = Hosp.OrderBy(h => h.provider_city);
+                    Hosp = Hosp.OrderBy(h => h.Location.provider_city);
                     break;
                 case "states":
-                    Hosp = Hosp.OrderByDescending(h => h.provider_state);
+                    Hosp = Hosp.OrderByDescending(h => h.Location.provider_state);
                     break;
                 case "MinDis":
                     Hosp = Hosp.OrderBy(h => h.total_discharges);
@@ -115,18 +124,8 @@ namespace Assignment4.Controllers
                     Hosp = Hosp.OrderByDescending(h => h.average_medicare_payments_2);
                     break;
                 default:
-                    Hosp = Hosp.OrderBy(h => h.provider_state);
+                    Hosp = Hosp.OrderBy(h => h.Location.provider_state);
                     break;
-            }
-            if(!String.IsNullOrEmpty(searchProvState))
-            {
-                HospsProvNames = HospsProvNames.Where(Hosp => Hosp.provider_state.Contains(searchProvState));
-                return View(HospsProvNames.ToList());
-            }
-            if(!String.IsNullOrEmpty(searchProvCity))
-            {
-                HospsProvCities = HospsProvCities.Where(Hosp => Hosp.provider_city.Contains(searchProvCity));
-                return View(HospsProvCities.ToList());
             }
             return View(Hosp.ToList());
         }
@@ -139,13 +138,6 @@ namespace Assignment4.Controllers
         List<Provider> providers = new List<Provider>();
         List<Location> locations = new List<Location>();
 
-        public IActionResult Test()
-        {
-            IQueryable<Provider> Prov = dbContext.Providers
-                                        .Include(p => p.Location)
-                                        .Where(p => p.Location.provider_state == "FL");
-            return View(Prov.ToList());
-        }
         public IActionResult Chart()
         {
             IQueryable<Hospital> Hosp = dbContext.Hospitals
@@ -171,7 +163,7 @@ namespace Assignment4.Controllers
                 TotalDischarges.Add(item.total_discharges);
             }
             ViewBag.Title = "Total Discharges by State";
-            ViewBag.Desc = "DRGs are a classification system that groups similar clinical conditions (diagnoses) and the procedures furnished by the hospital during the stay. What are the most common DRGs according to this dataset?";
+            ViewBag.Desc = new List<string> { "We can infer that the number of medical discharges per year is correlated with the usage of the Health Care System. How about looking at the number of Discharges per State? What states use the Health Care System the most?", "The State of Florida has the most discharges: 991", "The State of Arkansas has the less discharges: 11", "The Average of Total Discharges is: 27" };
             ViewBag.Data = String.Join(",", TotalDischarges.Select(d => d));
             ViewBag.Labels = String.Join(",", State.Select(d => "\"" + d + "\""));
             ViewBag.Label = "Total Discharges";
@@ -205,7 +197,7 @@ namespace Assignment4.Controllers
                 TotalDischarges.Add(item.total_discharges);
             }
             ViewBag.Title = "Total Discharges by State";
-            ViewBag.Desc = "DRGs are a classification system that groups similar clinical conditions (diagnoses) and the procedures furnished by the hospital during the stay. What are the most common DRGs according to this dataset?";
+            ViewBag.Desc = new List<string> { "We can infer that the number of medical discharges per year is correlated with the usage of the Health Care System. How about looking at the number of Discharges per State? What states use the Health Care System the most?", "The State of Florida has the most discharges: 991", "The State of Arkansas has the less discharges: 11", "The Average of Total Discharges is: 27"};
             ViewBag.Data = String.Join(",", TotalDischarges.Select(d => d));
             ViewBag.Labels = String.Join(",", State.Select(d => "\"" + d + "\""));
             ViewBag.Label = "Total Discharges";
@@ -239,7 +231,7 @@ namespace Assignment4.Controllers
             }
 
             ViewBag.Title = "Average Total Payments by State";
-            ViewBag.Desc = "How do states differ in their average charges for a DRG? Here is the information with the most expensive states coming first:";
+            ViewBag.Desc = new List<string> { "How do states differ in their average charges for a DRG? Here is the information with the most expensive states coming first:", "The State of Hawaii has the highest average total payment of: $156,158", "The State of Alabama has the lowest average total payment of:  $2,673", "Average Total of Payment by State is $9,707" };
             ViewBag.Data = String.Join(",", TotalPayments.Select(d => d));
             ViewBag.Labels = String.Join(",", State.Select(d => "\"" + d + "\""));
             ViewBag.Label = "Average Payments";
@@ -273,7 +265,7 @@ namespace Assignment4.Controllers
             }
 
             ViewBag.Title = "Difference in Average Total Payments by State";
-            ViewBag.Desc = "How about the difference between the highest and the lowest charges in the same state? Here is the breakdown of locations with the largest difference, which can help find more affordable options in a region.";
+            ViewBag.Desc = new List<string> { "How about the difference between the highest and the lowest charges in the same state? Here is the breakdown of locations with the largest difference, which can help find more affordable options in a region.", "The State of Illinois has the highest difference in total payments", "he State of Hawaii has the lowest difference in total payments" };
             ViewBag.Data = String.Join(",", PaymentDifference.Select(d => d));
             ViewBag.Labels = String.Join(",", State.Select(d => "\"" + d + "\""));
             ViewBag.Label = "Average Payments";
